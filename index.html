@@ -11,20 +11,36 @@
 </head>
 <body>
     <h1>Probando</h1>
+    <label for="N_alumnos">Cantidad de alumnos:</label>
+    <input type="number" min="1" id="input_alumnos">
 
-    <input type="month" name="" id="input_month">
-    <button id="aplicarMes">Aplicar</button>
+    <label for="fecha_Month">Seleccionar Mes y Año:</label>
+    <input type="month" id="input_month">
+    
+    <button id="aplicarBtn">Aplicar</button>
 
     <hr>
     <table>
-        <tr data-tr-checkbox>
-            <!-- <td>
-                <input type="checkbox" name="1" id="1" checked>
-            </td>  -->
-        </tr>
-        <tr data-tr-dias>
-            
-        </tr>
+        <thead>
+            <tr data-tr-checkbox>
+                <th>(Días hábiles)</th>
+                <!-- aquí irán las casillas checkbox -->
+            </tr>
+            <tr data-tr-dias>
+                <th>Alumnos Nº:</th>
+                <!-- aquí será la fila con los Nº de días (del mes) -->
+            </tr>
+        </thead>
+        <tbody data-tr-filas>
+            <tr>
+                <!-- <th>1</th>
+                <td>p</td>
+                <td>p</td>
+                <td>a</td>
+                <td>a</td>
+                <td>f</td> -->
+            </tr>
+        </tbody>
 
     </table>
 
