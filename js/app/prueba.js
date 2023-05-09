@@ -1,21 +1,15 @@
-var lblStatus = document.querySelector('#laberlStatus');
+const btnprueba = document.querySelector("#btnprueba");
 
-//Accionar del boton
-let bttn = document.querySelector("#aplicarBtn");
-bttn.addEventListener("click", ()=>{
-    //limpiarAnterior();
-    
-    //get fecha, NºAlumnos
+btnprueba.addEventListener("click",()=>{
     let fechaMes = document.querySelector("#input_month");
     let alumnos = document.querySelector("#input_alumnos");
-    
+
     const maxDias = capturarFecha(fechaMes);
     const maxAlumnos = capturarN_Alumnos(alumnos);
-    construirFilasDias(maxDias);
-    construirFilasContenido(maxAlumnos,maxDias)
-    
-});
-
+    construirFilasDias(maxDias); /*se cambio de lugar*/
+ 
+    construirFilasContenido(maxAlumnos,maxDias);
+})
 
 function crearTagsSelect(){
     //TAREA: corregir los códigos reiterados!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -46,7 +40,6 @@ function crearTagsSelect(){
     return select;
 }
 
-
 //Captura la fecha y retorna el "año-mes".
 function capturarFecha(fechaMes){
     let cadena = fechaMes.value;
@@ -54,13 +47,14 @@ function capturarFecha(fechaMes){
     let mes = cadena.substring(5, 7);
     
     let diasEnUnMes = new Date(anio, mes, 0).getDate(); //Obtenemos el ultimo dia del mes
+    //construirFilasDias(diasEnUnMes); /*lo movemos al principio*/
+    parseInt(diasEnUnMes);
     return diasEnUnMes;
 };
 
-
 //generamos las filas TH y devuelve NºAlumnos.
 function capturarN_Alumnos(alumnos){
-    let N_alumnos = alumnos.value;
+    let N_alumnos = parseInt(alumnos.value);
 
     //Construimos las filas de alumnos
     for(var i = 1; i <= N_alumnos; i++){
@@ -76,7 +70,9 @@ function capturarN_Alumnos(alumnos){
     
     return N_alumnos;
 };
-
+/////////////////////////////////////////////////////////////
+//////********************************************///////////
+/////////////////////////////////////////////////////////////
 
 //construimos las filas de los dias
 function construirFilasDias(valorMax){
@@ -99,11 +95,15 @@ function construirFilasDias(valorMax){
     };
 };
 
-
+///////////////////////////////////////////////////////////////
+//////////////////construmimos el contenido TD///////////////////
 function construirFilasContenido(xAlumnos,MaxColumnas){
-    if(xAlumnos >= 1 & MaxColumnas >= 28){ 
+    console.log(xAlumnos,MaxColumnas);
+    if(xAlumnos >= 1 & MaxColumnas >= 28){ //acá está el problema*************
+        console.log(xAlumnos,MaxColumnas);
         const tbody_Rows = document.querySelector('[data-tr-filas]');
         for(let i = 0; i < xAlumnos; i++){
+            
             for(let x = 1; x <= MaxColumnas; x++){
                 const input_List = crearTagsSelect();
                 
@@ -114,5 +114,3 @@ function construirFilasContenido(xAlumnos,MaxColumnas){
         }
     }
 };
-
-
