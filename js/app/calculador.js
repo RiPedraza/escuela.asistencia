@@ -33,32 +33,56 @@ function extraerTD(){
     //var arrayFilas_x_Filas = [];
 
     for (let index = 2; index < alumnos; index++){ //Recorremos alumnos (Arriba --> Abajo)
-        const fila = tabla.rows[index].getElementsByTagName('td');
-        //arrayPorFila(fila);
-        
-        for (let index = 0; index < fila.length; index++) {
-            const tagsSelect = fila[index].getElementsByTagName('select')[0];
+        const fila = tabla.rows[index].getElementsByTagName('td'); /**console.log(filas[0])  me devuelve por columna */
+        arrayPorFila(fila,index);
+
+        for (let x = 0; x < fila.length; x++){
+            const tagsSelect = fila[x].getElementsByTagName('select')[0];
             const textOption = tagsSelect.options[tagsSelect.selectedIndex].text;
             myArray.push(textOption);
         }
-
-        
     }
     
 
-    // function arrayPorFila(filas){
-    //     console.log("****inicio*********");
-    //     for (let index = 0; index < filas.length; index++) {
-    //         const tagsSelect = filas[index].getElementsByTagName('select')[0];
-    //         const textOption = tagsSelect.options[tagsSelect.selectedIndex].text;
+    function arrayPorFila(filas,filaN){
+        console.log("****inicio*********");
 
-    //         console.log(textOption);
-    //     }
-            
-    //     console.log("****Fin*********");
+        for (let index = 0; index < filas.length; index++){
+            const tagsSelect = filas[index].getElementsByTagName('select')[0];
+            const textOption = tagsSelect.options[tagsSelect.selectedIndex].text;
+            columnaPresente(textOption,filaN);
+        }
+        console.log("****Fin*********");
+    }
+
+    var array_A=[], array_X=[], array_J=[], array_P=[], indice=[];
+
+    
+    function columnaPresente(evaluar,index){
+                
+        if(index != indice[indice.length-1]){
+            indice.push(index);
+        }
 
 
-    // }
+        switch (evaluar) {
+            case "P":
+                array_P.push(evaluar);
+            break;
+            case "A":
+                array_A.push(evaluar);
+            break;
+            case "X":
+                array_X.push(evaluar);
+            break;
+            case "J":
+                array_J.push(evaluar);
+            break;
+            default:
+                console.log("ocurrio un error en switch()")
+            break;
+        }
+    }
     
 
     

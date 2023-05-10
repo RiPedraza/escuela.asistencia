@@ -99,7 +99,7 @@ function construirFilasDias(valorMax){
     };
 };
 
-
+//////////////////construmimos el contenido TD///////////////////
 function construirFilasContenido(xAlumnos,MaxColumnas){
     if(xAlumnos >= 1 & MaxColumnas >= 28){ 
         const tbody_Rows = document.querySelector('[data-tr-filas]');
