@@ -48,7 +48,7 @@ function crearTagsSelect(){
 
 
 //Captura la fecha y retorna el "año-mes".
-function capturarFecha(fechaMes){
+export function capturarFecha(fechaMes){
     let cadena = fechaMes.value;
     let anio = cadena.substring(0, 4);
     let mes = cadena.substring(5, 7);
