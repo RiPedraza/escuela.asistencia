@@ -24,7 +24,7 @@
     <hr>
   
     <table id="tabla">
-        <thead>
+        <thead id="td_checkBox">
             <tr data-tr-checkbox>
                 <th>(Días hábiles)</th>
                 <!-- aquí irán las casillas checkbox -->
@@ -41,13 +41,41 @@
 
     </table>
 
+    <br>
+    <div data-DivResumen></div>
+
+    <template id="template_tablaGnl">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>(valor)</th>
+                    <th>(%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Total asistencia</th>
+                    <td id="valor_P"></td>
+                    <td id="porcentaje_P">%%%</td>
+                </tr>
+                <tr>
+                    <th>Total inacistencia</th>
+                    <td id="valor_A"></td>
+                    <td id="porcentaje_A">%%%</td>
+                </tr>
+                <tr>
+                    <th>Asistencia media</th>
+                    <td id="Asistencia_Media"></td>
+                    <td>---</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </template>
 
     
-    
-    
-    <!-- <script src="js/app/app.js"></script>
-    <script src="js/app/pruebaCALCULO.js"></script> -->
-    
-    <script type="module" src="js/app/pruebaCALCULO.js"></script>
+               
+    <script type="module" src="js/app/calculo.js"></script>
 </body>
 </html>

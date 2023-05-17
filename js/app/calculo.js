@@ -1,23 +1,38 @@
 import { capturarFecha } from "./app.js";
 
 const btnCalcular = document.querySelector('#btnCalcular');
-const tBody = document.querySelector("[data-tr-filas]");
-let alumnos = document.querySelector("#input_alumnos").value;
+
+var tBody = document.querySelector("[data-tr-filas]");
+var alumnos = document.querySelector("#input_alumnos").value;
 alumnos = parseInt(alumnos);
-let fechaMes = document.querySelector("#input_month");
-const maxDias = capturarFecha(fechaMes);
+var fechaMes = document.querySelector("#input_month");
+var maxDias = capturarFecha(fechaMes);
+
 
 btnCalcular.addEventListener("click",()=>{
+
+    tBody = document.querySelector("[data-tr-filas]");
+    alumnos = document.querySelector("#input_alumnos").value;
+    alumnos = parseInt(alumnos);
+    fechaMes = document.querySelector("#input_month");
+    maxDias = capturarFecha(fechaMes);
+
+    //Resetear los campos ///////
+    // /*       aquí          */
+    /////////////////////////////
+
     //Sección de llamadas:
     construirTitulos_UltimasColumnas();
     construirTitulos_UltimasFilas();
     for (let i = 0; i < alumnos; i++) {        
         filaTD(i);
     }
+    
     for (let x = 1; x <= maxDias; x++) { 
         columnasTD(x);
     }
-
+    
+    construirTotalGeneral();
 });
 
 
@@ -74,6 +89,7 @@ function filaTD(rowIndice){
 
 
 /////////////////// ULTIMAS (2) FILAS ////////////////////////
+
 function construirTitulos_UltimasFilas(){
     const tabla_Rows = document.querySelector("[data-tr-filas]");
 
@@ -146,3 +162,80 @@ function columnasTD(columns){
     construirUltimasFilas(presentes,ausentes);
 }
 
+
+/////////////////// TOTAL GENERAL ////////////////////////
+function construirTabla(p,a){
+
+    const template = template_tablaGnl.content.cloneNode(true); //con true clona todo (y no solo el primer elemento)
+    const valor_P = template.querySelector("#valor_P");
+    const valor_A = template.querySelector("#valor_A");
+    const asistenciaMedia = template.querySelector("#Asistencia_Media");
+    const div_Resumen = document.querySelector("[data-DivResumen]");
+    const diasHabiles = diaHabiles();
+    const suma_PyA = p + a;
+    const porcentaje_P = template.querySelector("#porcentaje_P");
+    const porcentaje_A = template.querySelector("#porcentaje_A");
+
+    //Valor
+    valor_P.innerHTML = p;
+    valor_A.innerHTML = a;
+    asistenciaMedia.innerHTML = p/diasHabiles;
+
+    //Porcentaje
+    porcentaje_P.innerHTML = (p*100)/suma_PyA;
+    porcentaje_A.innerHTML = (a*100)/suma_PyA;
+
+    div_Resumen.appendChild(template);
+}
+
+function diaHabiles(){
+    const array_True=[];
+    //const array_False=[];
+    const checkBox = document.querySelector("#td_checkBox");
+    const td_checkBox = checkBox.getElementsByTagName('td');
+
+    for (const iterator of td_checkBox) {
+        const input_cBox = iterator.getElementsByTagName('input')[0];
+        const result = input_cBox.checked;
+
+        switch (result) {
+            case true:
+                array_True.push(result);
+            break;
+            default:
+                //array_False.push(result);
+            break;
+        }
+    }
+    
+    return array_True.length;
+}
+
+
+function construirTotalGeneral(){
+    const array_P=[], array_A=[];
+    const todosLosTD = tBody.getElementsByTagName('td');
+
+    for (const iterator of todosLosTD) {
+        const tagsSelect = iterator.getElementsByTagName('select')[0];
+        const textOption = tagsSelect.options[tagsSelect.selectedIndex].text;
+  
+        switch (textOption) {
+            case "P":
+                array_P.push(iterator);
+            break;
+            case "A":
+                array_A.push(iterator);
+            break;
+            default:
+            break;
+        }
+    }
+
+    let presentesTotal = array_P.length;
+    let ausentesTotal = array_A.length; 
+        
+    construirTabla(presentesTotal, ausentesTotal);
+   
+
+}
