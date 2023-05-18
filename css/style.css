@@ -1,7 +1,50 @@
+table{
+    border-collapse: collapse;
+    /* border-spacing: 5px; */
+    border: 3px solid purple;
+    
+}
+
 li{
     list-style: none;
 }
 
-tr{
-    align-items: center;
+
+thead th, tbody th{
+    border: 1px solid black;
+    
+}
+
+thead td{
+    text-align: center;
+}
+
+tbody td{
+    padding: 4px;
+    border-bottom: 2px dotted gray;
+    border-top: 2px dotted gray;
+
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    
+}
+
+
+select{
+    border: none;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+/*Línea de cebra*/
+/* tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgb(247, 242, 242);
+} */
+
+
+tbody tr:hover{
+    background-color: aquamarine;
 }
