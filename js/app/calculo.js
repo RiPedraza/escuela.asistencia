@@ -1,4 +1,4 @@
-import { capturarFecha } from "./app.js";
+import { capturarFecha,limpiarCalculo } from "./app.js";
 
 const btnCalcular = document.querySelector('#btnCalcular');
 
@@ -17,9 +17,7 @@ btnCalcular.addEventListener("click",()=>{
     fechaMes = document.querySelector("#input_month");
     maxDias = capturarFecha(fechaMes);
 
-    //Resetear los campos ///////
-    // /*       aquí          */
-    /////////////////////////////
+    limpiarCalculo();
 
     //Sección de llamadas:
     construirTitulos_UltimasColumnas();
@@ -51,11 +49,11 @@ function construirTitulos_UltimasColumnas(){
 
 function construirUltimasColumnas(p,a,rowIndice){ //rowIndice <-- va para abajo
     const filaTR = tBody.rows[rowIndice];
-    const elementTH_Presentes = document.createElement('th');
+    const elementTH_Presentes = document.createElement('th'); elementTH_Presentes.classList.add('totalColumn_P');
     elementTH_Presentes.innerHTML = p;
     filaTR.appendChild(elementTH_Presentes);
 
-    const elementTH_Ausentes = document.createElement('th');
+    const elementTH_Ausentes = document.createElement('th'); elementTH_Ausentes.classList.add('totalColumn_A');
     elementTH_Ausentes.innerHTML = a;
     filaTR.appendChild(elementTH_Ausentes);
     
@@ -93,13 +91,13 @@ function filaTD(rowIndice){
 function construirTitulos_UltimasFilas(){
     const tabla_Rows = document.querySelector("[data-tr-filas]");
 
-    const tr_P = document.createElement('tr');
+    const tr_P = document.createElement('tr'); tr_P.classList.add('tr_LastFilas_P');
     const th_P = document.createElement('th');
     th_P.innerHTML = "Presentes";
     tr_P.appendChild(th_P);
     tabla_Rows.appendChild(tr_P);
     
-    const tr_A = document.createElement('tr');
+    const tr_A = document.createElement('tr'); tr_A.classList.add('tr_LastFilas_A');
     const th_A = document.createElement('th');
     th_A.innerHTML = "Ausentes";
     tr_A.appendChild(th_A);
@@ -112,19 +110,15 @@ function construirUltimasFilas(p,a){ //el parametro "columns" me devuelve de 1 a
     const row_P = alumnos; //Recorda que alumno no empiesa desde 0.
     const row_A = alumnos + 1;
     
-    
     const totalPrecentes = document.createElement('th');
     totalPrecentes.innerHTML = p;
     const filaTotal_P = tablaBody.rows[row_P];
     filaTotal_P.appendChild(totalPrecentes);
     
-      
-
     const totalAusentes = document.createElement('th');
     totalAusentes.innerHTML = a;
     const filaTotal_A = tablaBody.rows[row_A];
     filaTotal_A.appendChild(totalAusentes);
-    
 }
 
 function columnasTD(columns){
@@ -137,8 +131,6 @@ function columnasTD(columns){
         
         array_Column.push(textOption);
     }
-
-    
 
     for (const iterator of array_Column) {
         switch (iterator) {
@@ -156,8 +148,6 @@ function columnasTD(columns){
 
     let presentes = array_P.length;
     let ausentes = array_A.length; 
-    // console.log("-----------");
-    // console.log(presentes,ausentes);
 
     construirUltimasFilas(presentes,ausentes);
 }
@@ -179,13 +169,16 @@ function construirTabla(p,a){
     //Valor
     valor_P.innerHTML = p;
     valor_A.innerHTML = a;
-    asistenciaMedia.innerHTML = p/diasHabiles;
+    let calculo = p/diasHabiles;
+    asistenciaMedia.innerHTML = Number(calculo.toFixed(2));
 
     //Porcentaje
-    porcentaje_P.innerHTML = (p*100)/suma_PyA;
-    porcentaje_A.innerHTML = (a*100)/suma_PyA;
+    porcentaje_P.innerHTML = Number(((p*100)/suma_PyA).toFixed(2));
+    porcentaje_A.innerHTML = Number(((a*100)/suma_PyA).toFixed(2));
 
     div_Resumen.appendChild(template);
+
+    // Si la porción fraccionaría del número es 0.5 o mayor, el argumento es redondeado al siguiente número entero superior. Si la porción de la fracción del número es menor a 0.5, el argumento es redondeado al siguiente número entero inferior.
 }
 
 function diaHabiles(){
@@ -236,6 +229,5 @@ function construirTotalGeneral(){
     let ausentesTotal = array_A.length; 
         
     construirTabla(presentesTotal, ausentesTotal);
-   
-
 }
+

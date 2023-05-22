@@ -1,25 +1,74 @@
-var lblStatus = document.querySelector('#laberlStatus');
-
 //Accionar del boton
 let bttn = document.querySelector("#aplicarBtn");
 bttn.addEventListener("click", ()=>{
-    //limpiarAnterior();
-    
     //get fecha, NºAlumnos
     let fechaMes = document.querySelector("#input_month");
     let alumnos = document.querySelector("#input_alumnos");
+
+    limpiarTodo();
     
     const maxDias = capturarFecha(fechaMes);
     const maxAlumnos = capturarN_Alumnos(alumnos);
     construirFilasDias(maxDias);
-    construirFilasContenido(maxAlumnos,maxDias)
-    
+    construirFilasContenido(maxAlumnos,maxDias);
+    checkboxColumna(maxAlumnos);
 });
+
+
+
+export function limpiarCalculo(){  
+
+    if(document.querySelector('#tabla_calculo')){
+        //console.log("SI existe: #tabla_calculo")
+        const tablaCalculo = document.querySelector('#tabla_calculo');
+        tablaCalculo.remove();
+    
+        const trHeadColumn = document.querySelector('[data-tr-dias]');
+        const collection = trHeadColumn.getElementsByTagName('th');
+        const indice = collection.length;
+        collection[indice-1].remove();
+        collection[indice-2].remove();
+    
+        //Últimas dos Filas (mediante Class)
+        const tr_LastFilas_P = document.querySelector('.tr_LastFilas_P');
+        const tr_LastFilas_A = document.querySelector('.tr_LastFilas_A');
+        tr_LastFilas_P.remove();
+        tr_LastFilas_A.remove();
+    
+        //total en column: ///
+            //Metodo Array.aply() para presentes
+        var nodeList = document.querySelectorAll('.totalColumn_P');
+        const totalColumn_P = Array.apply(null,nodeList); 
+            //Metodo  ES2015 [... ] para ausentes
+        const totalColumn_A = [...document.querySelectorAll('.totalColumn_A')];   
+        for (const iteratorP of totalColumn_P) {
+            iteratorP.remove();
+        }
+        for (const iteratorA of totalColumn_A) {
+            iteratorA.remove();
+        }
+    }
+};
+
+function limpiarTodo(){
+    if(document.querySelector('#tabla_calculo')){
+       limpiarCalculo();
+    }
+    
+    const tabla = document.querySelector('#tabla');
+    tabla.remove();
+
+    const templateT = template_tabla.content.cloneNode(true);
+    const div_conteiner = document.querySelector('#conteiner');
+    const br = document.querySelector('#br')
+    
+    div_conteiner.insertBefore(templateT,br); //se desordena
+
+}
 
 
 function crearTagsSelect(){
     //TAREA: corregir los códigos reiterados!!!!!!!!!!!!!!!!!!!!!!!!!
-
     const option1 = document.createElement('option');
     const option1Texto = document.createTextNode("P");
     option1.appendChild(option1Texto);
@@ -29,7 +78,7 @@ function crearTagsSelect(){
     option2.appendChild(option2Texto);
 
     const option3 = document.createElement('option');
-    const option3Texto = document.createTextNode("J");
+    const option3Texto = document.createTextNode("F");
     option3.appendChild(option3Texto);
 
     const option4 = document.createElement('option');
@@ -92,7 +141,8 @@ function construirFilasDias(valorMax){
         const tr_checkbox = document.querySelector('[data-tr-checkbox]');
         const td_checkbox = document.createElement('td');
         const input = document.createElement('input'); input.setAttribute("type", "checkbox"); input.setAttribute("checked", true);
-        
+        //input.setAttribute("onClick", "checkboxColumna();");
+
         tr_checkbox.appendChild(td_checkbox);
         td_checkbox.appendChild(input);
         
@@ -115,4 +165,44 @@ function construirFilasContenido(xAlumnos,MaxColumnas){
     }
 };
 
+
+////////////////Funcionalidades checkbox////////////////////////
+
+function checkboxColumna(cantidadFilas){
+    var thead_tr = document.querySelector("[data-tr-checkbox]");
+    var checkBox = thead_tr.getElementsByTagName('input');
+    
+    for (const iterator of checkBox) { //Este iterador despues de completar el ciclo, los cambios hechos quedan presentes para todos los checkbox//
+        iterator.addEventListener('click',(even)=>{
+            status_Ubication_theTarget(even.target,iterator.checked,cantidadFilas);
+        });
+    }
+}
+
+function status_Ubication_theTarget(ubicacion,status,nFilas){
+    const ubicacionTD = ubicacion.parentNode;
+    var cBoxUbicacion = ubicacionTD.cellIndex;
+
+    var td_ubicacion = document.querySelector("[data-tr-filas]");
+    
+    if(!status){
+        for(let i = 0; i < nFilas; i++){
+            const columna = td_ubicacion.rows[i].cells[cBoxUbicacion];
+            var tagsSelect = columna.getElementsByTagName('select')[0];
+            //preguntar si se quiere hacer los cambios (?):
+            tagsSelect.value = "F";        
+        }
+    }else{
+        for(let i = 0; i < nFilas; i++){
+            const columna = td_ubicacion.rows[i].cells[cBoxUbicacion];
+            var tagsSelect = columna.getElementsByTagName('select')[0];
+            //preguntar si se quiere hacer los cambios (?):
+            tagsSelect.value = "P";        
+        }
+    }
+
+    
+
+
+}
 
