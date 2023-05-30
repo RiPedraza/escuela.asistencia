@@ -204,7 +204,6 @@ function diaHabiles(){
     return array_True.length;
 }
 
-
 function construirTotalGeneral(){
     const array_P=[], array_A=[];
     const todosLosTD = tBody.getElementsByTagName('td');
@@ -229,5 +228,9 @@ function construirTotalGeneral(){
     let ausentesTotal = array_A.length; 
         
     construirTabla(presentesTotal, ausentesTotal);
+
+    /*************  style  *************/
+    // const bordeTabla = document.querySelector('#tabla');
+    // bordeTabla.style.border = '1px solid black';
 }
 

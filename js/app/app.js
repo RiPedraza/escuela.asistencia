@@ -1,3 +1,5 @@
+import { f_botonIzq } from "./botton.js";
+
 //Accionar del boton
 let bttn = document.querySelector("#aplicarBtn");
 bttn.addEventListener("click", ()=>{
@@ -12,6 +14,8 @@ bttn.addEventListener("click", ()=>{
     construirFilasDias(maxDias);
     construirFilasContenido(maxAlumnos,maxDias);
     checkboxColumna(maxAlumnos);
+    
+    f_botonIzq();
 });
 
 
@@ -65,7 +69,6 @@ function limpiarTodo(){
     div_conteiner.insertBefore(templateT,br); //se desordena
 
 }
-
 
 function crearTagsSelect(){
     //TAREA: corregir los códigos reiterados!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -125,7 +128,6 @@ function capturarN_Alumnos(alumnos){
     
     return N_alumnos;
 };
-
 
 //construimos las filas de los dias
 function construirFilasDias(valorMax){

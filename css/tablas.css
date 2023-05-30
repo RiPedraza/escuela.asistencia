@@ -1,9 +1,15 @@
-table{
+#tabla{
     border-collapse: collapse;
     /* border-spacing: 5px; */
     border: 3px solid purple;
-    
 }
+
+#tabla_calculo{
+    border-collapse: collapse;
+    /* border-spacing: 5px; */
+    border: 3px solid rgb(56, 47, 182);
+}
+
 
 li{
     list-style: none;
@@ -51,6 +57,6 @@ tbody tr:hover{
     background-color: aquamarine;
 }
 
-tbody tr:nth-last-child(2){
+/* #tabla tr:nth-last-child(2){
     border-top: 2px solid black;
-}
+} */
