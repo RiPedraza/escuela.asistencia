@@ -25,24 +25,23 @@ botonIzq.addEventListener('click',(e)=>{
 function f_botonDer(){
     botonDer.style.visibility = "hidden";
     botonIzq.style.visibility = "visible";
-    btnCalcular.style.visibility = "hidden";   
+    btnCalcular.style.visibility = "hidden";
     
     controlHead_input.style.visibility = "visible";
     controlHead_input.style.width = "700px";
     controlHead_input.style.height = "100px";
     controlHead_input.style.overflow = "hidden";
     controlHead_input.style.transition = "all 2s linear"
-    
 }
 
 export function f_botonIzq(){
-    botonDer.style.visibility = "visible";
     botonIzq.style.visibility = "hidden";
+    botonDer.style.visibility = "visible";
     btnCalcular.style.visibility = "visible";
     
     controlHead_input.style.visibility = "hidden";
     controlHead_input.style.width = "0";
     controlHead_input.style.height = "0";
     controlHead_input.style.overflow = "hidden";
-    controlHead_input.style.transition = "all 2s linear"
+    controlHead_input.style.transition = "all 2s linear"    
 }

@@ -29,15 +29,12 @@
     visibility: hidden;
 }
 
-/* *********************** */
 .controlHead_input{
     display: flex;
     align-items: center;
-    /* width: 80%; */
     height: 100px;
 }
 
-/* ************************ */
 #aplicarBtn{   
     width: 64px;
     height: 25px;
@@ -60,6 +57,15 @@
     border-left-color: #E9EEF2;
 }
 
+/* *********************** */
+/* Inicializacion efect */
+.controlHead_input{
+    visibility: visible;
+    width: 700px;
+    height: 100px;
+    overflow: hidden;
+    transition: all 2s linear 0s;
+}
 
 /* ************************ */
 /* Mobile */
