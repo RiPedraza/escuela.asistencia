@@ -1,6 +1,0 @@
-https://osmancea.medium.com/generando-html-con-template-strings-en-javascript-8cc90342a866
-
-->Ver como agrega pripiedades al momento de crear el elemento <h1>:
-
-	const title = createElement('h1', { class: 'title' }, "Users");
-	document.body.appendChild(title);

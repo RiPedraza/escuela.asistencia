@@ -19,7 +19,6 @@ bttn.addEventListener("click", ()=>{
 });
 
 
-
 export function limpiarCalculo(){  
 
     if(document.querySelector('#tabla_calculo')){
@@ -158,8 +157,25 @@ function construirFilasContenido(xAlumnos,MaxColumnas){
         for(let i = 0; i < xAlumnos; i++){
             for(let x = 1; x <= MaxColumnas; x++){
                 const input_List = crearTagsSelect();
-                
                 const td_rows = document.createElement('td');
+                
+                //new ///////////////////////////////////
+                // const tagsSelect = td_rows.getElementsByTagName('select')[0];
+                // const textOption = tagsSelect.options[tagsSelect.selectedIndex].text;
+                //
+                // switch (textOption) {
+                //     case "X":
+                //         td_rows.style.background = "grey";
+                //     break;
+                //     case "F":
+                //         td_rows.style.background = "grey";
+                //     break;
+                //     default:
+                //     break;
+                // }
+                //
+                /////////////////////////////////////////
+
                 td_rows.appendChild(input_List);
                 tbody_Rows.rows[i].appendChild(td_rows);
             }
@@ -186,25 +202,22 @@ function status_Ubication_theTarget(ubicacion,status,nFilas){
     var cBoxUbicacion = ubicacionTD.cellIndex;
 
     var td_ubicacion = document.querySelector("[data-tr-filas]");
-    
+
     if(!status){
         for(let i = 0; i < nFilas; i++){
             const columna = td_ubicacion.rows[i].cells[cBoxUbicacion];
             var tagsSelect = columna.getElementsByTagName('select')[0];
-            //preguntar si se quiere hacer los cambios (?):
+            //preguntar si quiere hacer los cambios (?):
             tagsSelect.value = "F";        
         }
     }else{
         for(let i = 0; i < nFilas; i++){
             const columna = td_ubicacion.rows[i].cells[cBoxUbicacion];
             var tagsSelect = columna.getElementsByTagName('select')[0];
-            //preguntar si se quiere hacer los cambios (?):
-            tagsSelect.value = "P";        
+            //preguntar si quiere hacer los cambios (?):
+            tagsSelect.value = "P";
         }
     }
-
-    
-
 
 }
 

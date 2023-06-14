@@ -178,7 +178,6 @@ function construirTabla(p,a){
 
     div_Resumen.appendChild(template);
 
-    // Si la porción fraccionaría del número es 0.5 o mayor, el argumento es redondeado al siguiente número entero superior. Si la porción de la fracción del número es menor a 0.5, el argumento es redondeado al siguiente número entero inferior.
 }
 
 function diaHabiles(){

@@ -6,7 +6,14 @@
 }
 
 .controlHead_flecha{
-    height: 83px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+#input_month, #input_alumnos{
+    margin-right: 20px;
+    width: 153px;
 }
 
 /* *********************** */
@@ -26,6 +33,47 @@
 .controlHead_input{
     display: flex;
     align-items: center;
-    width: 46%;
-    height: 83px;
+    /* width: 80%; */
+    height: 100px;
 }
+
+/* ************************ */
+#aplicarBtn{   
+    width: 64px;
+    height: 25px;
+    background: #78A6C8;
+    color: #E9EEF2;
+    border-top-color: #E9EEF2;
+    border-right-color: #326789;
+    border-bottom-color: #326789;
+    border-left-color: #E9EEF2;
+}
+
+#btnCalcular{
+    width: 64px;
+    height: 25px;
+    background: #E65C4F;
+    color: #E9EEF2;
+    border-top-color: #E9EEF2;
+    border-right-color: #E65C4F;
+    border-bottom-color: #E65C4F;
+    border-left-color: #E9EEF2;
+}
+
+
+/* ************************ */
+/* Mobile */
+@media screen and (max-width: 640px){
+    h1{
+        font-size: 1.2em;
+    }
+
+    .controlHead_input{
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        height: 100px;
+    }
+
+}
+
