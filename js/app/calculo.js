@@ -229,7 +229,6 @@ function construirTotalGeneral(){
     construirTabla(presentesTotal, ausentesTotal);
 
     /*************  style  *************/
-    // const bordeTabla = document.querySelector('#tabla');
-    // bordeTabla.style.border = '1px solid black';
+    
 }
 

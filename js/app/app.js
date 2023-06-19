@@ -16,6 +16,12 @@ bttn.addEventListener("click", ()=>{
     checkboxColumna(maxAlumnos);
     
     f_botonIzq();
+    
+    setTimeout(function(){
+        selectEvent();
+        // cambios();
+    }, 500);
+
 });
 
 
@@ -72,18 +78,22 @@ function limpiarTodo(){
 function crearTagsSelect(){
     //TAREA: corregir los códigos reiterados!!!!!!!!!!!!!!!!!!!!!!!!!
     const option1 = document.createElement('option');
+    option1.classList.add('optionP');
     const option1Texto = document.createTextNode("P");
     option1.appendChild(option1Texto);
 
     const option2 = document.createElement('option');
+    option2.classList.add('optionA');
     const option2Texto = document.createTextNode("A");
     option2.appendChild(option2Texto);
 
     const option3 = document.createElement('option');
+    option3.classList.add('optionF');
     const option3Texto = document.createTextNode("F");
     option3.appendChild(option3Texto);
 
     const option4 = document.createElement('option');
+    option4.classList.add('optionX');
     const option4Texto = document.createTextNode("X");
     option4.appendChild(option4Texto);
     
@@ -156,26 +166,10 @@ function construirFilasContenido(xAlumnos,MaxColumnas){
         const tbody_Rows = document.querySelector('[data-tr-filas]');
         for(let i = 0; i < xAlumnos; i++){
             for(let x = 1; x <= MaxColumnas; x++){
-                const input_List = crearTagsSelect();
+                const input_List = crearTagsSelect(); //devuelve un "Select" con sus option
+                input_List.style.color = "gray";
                 const td_rows = document.createElement('td');
                 
-                //new ///////////////////////////////////
-                // const tagsSelect = td_rows.getElementsByTagName('select')[0];
-                // const textOption = tagsSelect.options[tagsSelect.selectedIndex].text;
-                //
-                // switch (textOption) {
-                //     case "X":
-                //         td_rows.style.background = "grey";
-                //     break;
-                //     case "F":
-                //         td_rows.style.background = "grey";
-                //     break;
-                //     default:
-                //     break;
-                // }
-                //
-                /////////////////////////////////////////
-
                 td_rows.appendChild(input_List);
                 tbody_Rows.rows[i].appendChild(td_rows);
             }
@@ -208,7 +202,9 @@ function status_Ubication_theTarget(ubicacion,status,nFilas){
             const columna = td_ubicacion.rows[i].cells[cBoxUbicacion];
             var tagsSelect = columna.getElementsByTagName('select')[0];
             //preguntar si quiere hacer los cambios (?):
-            tagsSelect.value = "F";        
+            tagsSelect.value = "F";  
+            tagsSelect.style.color = "black";
+            tagsSelect.parentNode.style.background = "darkgray";
         }
     }else{
         for(let i = 0; i < nFilas; i++){
@@ -216,8 +212,63 @@ function status_Ubication_theTarget(ubicacion,status,nFilas){
             var tagsSelect = columna.getElementsByTagName('select')[0];
             //preguntar si quiere hacer los cambios (?):
             tagsSelect.value = "P";
+            tagsSelect.style.color = "gray";
+            tagsSelect.parentNode.style.background = "transparent";
         }
     }
 
 }
+
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+
+function selectEvent(){
+    const tabla = document.querySelector('#tabla').getElementsByTagName('select');
+
+    for (const iterator of tabla){
+
+        iterator.addEventListener('change', (event) => {
+            const parent = event.target;
+
+            switch (parent.value) {
+                case "P":
+                    //Nodo Padre: td
+                    parent.parentNode.style.background = "transparent"
+
+                    //Nodo target: select
+                    parent.style.color = "gray";
+                break;
+                case "A":
+                    //Nodo Padre: td
+                    parent.parentNode.style.background = "transparent"
+
+                    //Nodo target: select
+                    parent.style.color = "black";
+                break;
+                case "F":
+                    //Nodo Padre: td
+                    parent.parentNode.style.background = "darkgray";
+
+                    //Nodo target: select
+                    parent.style.color = "black";
+                break;
+                case "X":
+                    //Nodo Padre: td
+                    parent.parentNode.style.background = "gray";
+
+                    //Nodo target: select
+                    parent.style.color = "white";
+                break;
+                default:
+                break;
+            }
+        
+        });
+    }
+}
+
+
+
 

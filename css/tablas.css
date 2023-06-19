@@ -1,28 +1,20 @@
 #tabla{
     border-collapse: collapse;
-    /* border-spacing: 5px; */
     border: 3px solid #326789;
 }
 
 #tabla_calculo{
     border-collapse: collapse;
-    /* border-spacing: 5px; */
     border: 3px solid #326789;
 }
-
 
 li{
     list-style: none;
 }
 
-
 thead th{
     border: 1px solid black;
 }
-
-/* tbody th{
-    border: 1px dotted gray;
-} */
 
 thead td{
     text-align: center;
@@ -36,7 +28,6 @@ tbody td, tbody th{
     border-left: 1px solid black;
     border-right: 1px solid black;
 }
-
 
 select{
     border: none;
@@ -52,7 +43,6 @@ tbody tr:nth-child(even) {
     background-color: rgb(247, 242, 242);
 } */
 
-
 tbody tr:hover{
     background-color: #E9EEF2;
 }
@@ -60,3 +50,20 @@ tbody tr:hover{
 /* #tabla tr:nth-last-child(2){
     border-top: 2px solid black;
 } */
+
+
+/*********************/
+.optionP{
+    color: gray;
+}
+.optionA{
+    color: black;
+}
+.optionF{
+    color: red;
+}
+.optionX{
+    color: white;
+    background: darkslategray;
+}
+
