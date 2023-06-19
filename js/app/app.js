@@ -127,7 +127,9 @@ function capturarN_Alumnos(alumnos){
     for(var i = 1; i <= N_alumnos; i++){
         const th_alumnos = document.createElement('th');
         th_alumnos.innerHTML = i;
-        
+        th_alumnos.style.background = "black";
+        th_alumnos.style.color = "white";
+
         const tr_alumnos = document.createElement('tr');
         tr_alumnos.appendChild(th_alumnos);
         
@@ -167,7 +169,7 @@ function construirFilasContenido(xAlumnos,MaxColumnas){
         for(let i = 0; i < xAlumnos; i++){
             for(let x = 1; x <= MaxColumnas; x++){
                 const input_List = crearTagsSelect(); //devuelve un "Select" con sus option
-                input_List.style.color = "gray";
+                input_List.style.color = "rgb(177, 175, 175)";
                 const td_rows = document.createElement('td');
                 
                 td_rows.appendChild(input_List);
@@ -238,14 +240,14 @@ function selectEvent(){
                     parent.parentNode.style.background = "transparent"
 
                     //Nodo target: select
-                    parent.style.color = "gray";
+                    parent.style.color = "rgb(177, 175, 175)";
                 break;
                 case "A":
                     //Nodo Padre: td
                     parent.parentNode.style.background = "transparent"
 
                     //Nodo target: select
-                    parent.style.color = "black";
+                    parent.style.color = "red";
                 break;
                 case "F":
                     //Nodo Padre: td
@@ -256,7 +258,7 @@ function selectEvent(){
                 break;
                 case "X":
                     //Nodo Padre: td
-                    parent.parentNode.style.background = "gray";
+                    parent.parentNode.style.background = "#403e3e";
 
                     //Nodo target: select
                     parent.style.color = "white";

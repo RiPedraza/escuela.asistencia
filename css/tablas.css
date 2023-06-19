@@ -13,7 +13,7 @@ li{
 }
 
 thead th{
-    border: 1px solid black;
+    border: 1px solid gray;
 }
 
 thead td{
@@ -54,16 +54,23 @@ tbody tr:hover{
 
 /*********************/
 .optionP{
-    color: gray;
+    color: rgb(177, 175, 175);
 }
 .optionA{
-    color: black;
+    color: red;
 }
 .optionF{
-    color: red;
+    color: black;
+    background: darkgray;
 }
 .optionX{
     color: white;
-    background: darkslategray;
+    background: #403e3e;
+}
+
+/*****************************/
+[data-tr-dias]{
+    background: black;
+    color: white;
 }
 
