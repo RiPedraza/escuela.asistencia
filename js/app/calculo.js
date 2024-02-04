@@ -1,4 +1,5 @@
 import { capturarFecha,limpiarCalculo } from "./app.js";
+import { descargarArchivo } from "./exportarExcel.js";
 
 const btnCalcular = document.querySelector('#btnCalcular');
 
