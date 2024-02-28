@@ -1,11 +1,16 @@
+
 #tabla{
     border-collapse: collapse;
     border: 3px solid #326789;
+    /* border-collapse: collapse; */
+
 }
 
 #tabla_calculo{
     border-collapse: collapse;
+    border: 3px solid black;
     border: 3px solid #326789;
+    text-align: center;
 }
 
 li{
@@ -53,6 +58,11 @@ tbody tr:hover{
 
 
 /*********************/
+
+.input_List{
+    color: rgb(177, 175, 175);
+}
+
 .optionP{
     color: rgb(177, 175, 175);
 }
@@ -74,3 +84,62 @@ tbody tr:hover{
     color: white;
 }
 
+
+.grafico{
+    width: 400px;
+    display: flex;
+    margin-left: 150px;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabla_y_grafico{
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+
+.tituloResumen, .tituloGrafico{
+    color: #040826;
+}
+
+
+.table-responsive{
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* @media screen and (max-width:1024px){
+    .table-responsive{
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+} */
+
+@media screen and (max-width:680px){
+    #conteiner{
+        margin-top: 20px;
+    }
+
+    .tabla_y_grafico {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .grafico{
+        margin-left: 0;
+        margin-top: 40px;
+    }
+
+}
+
+@media screen and (max-width:400px){
+    .grafico{
+        width: 320px;
+    }
+
+}

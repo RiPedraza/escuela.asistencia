@@ -1,28 +1,18 @@
-import { capturarFecha,limpiarCalculo } from "./app.js";
-import { descargarArchivo } from "./exportarExcel.js";
+import { limpiarCalculo } from "./clear.js";
+import { input_alumnos, input_month} from "./getElement.js";
+import { bodyTabla } from "./getElement.js";
+import { miGrafico } from "./myChart.js";
+// import { obtenerDias } from "./importarExcel.js";
+var days_Month = 0;
 
-const btnCalcular = document.querySelector('#btnCalcular');
-
-var tBody = document.querySelector("[data-tr-filas]");
-var alumnos = document.querySelector("#input_alumnos").value;
-alumnos = parseInt(alumnos);
-var fechaMes = document.querySelector("#input_month");
-var maxDias = capturarFecha(fechaMes);
-
-
-btnCalcular.addEventListener("click",()=>{
-
-    tBody = document.querySelector("[data-tr-filas]");
-    alumnos = document.querySelector("#input_alumnos").value;
-    alumnos = parseInt(alumnos);
-    fechaMes = document.querySelector("#input_month");
-    maxDias = capturarFecha(fechaMes);
-
+export function calcular(){
+    const {maxDias, alumnos} = reCapturar();
     limpiarCalculo();
-
-    //Sección de llamadas:
+    
+    //Construimos los titulos para los totales:
     construirTitulos_UltimasColumnas();
     construirTitulos_UltimasFilas();
+
     for (let i = 0; i < alumnos; i++) {        
         filaTD(i);
     }
@@ -32,7 +22,47 @@ btnCalcular.addEventListener("click",()=>{
     }
     
     construirTotalGeneral();
-});
+    
+}
+
+
+function reCapturar(){
+
+    /**necesitamos verificar si se importo*/
+
+
+    var alumnos = input_alumnos.value;
+    alumnos = parseInt(alumnos);
+    var maxDias = capturarFecha(input_month);
+
+    return {
+        maxDias: maxDias, 
+        alumnos: alumnos
+    };
+}
+
+//En caso de Importar excel, modificamos la variable global: days_Month, para utilizar en la funcion: capturarFecha(fechaMes)
+export function ifImportMonth(days){
+    days_Month = days;
+}
+
+//Captura la fecha y retorna el "año-mes".
+function capturarFecha(fechaMes){
+    let cadena = fechaMes.value;
+
+    if(cadena.length == 7){
+        let anio = cadena.substring(0, 4);
+        let mes = cadena.substring(5, 7);
+        
+        var diasEnUnMes = new Date(anio, mes, 0).getDate(); //Obtenemos el ultimo dia del mes
+    }else{
+        var diasEnUnMes = days_Month;
+    }
+    
+
+    return diasEnUnMes;
+};
+
 
 
 /////////////////// ULTIMAS (2) COLUMNAS ////////////////////////
@@ -49,7 +79,8 @@ function construirTitulos_UltimasColumnas(){
 }
 
 function construirUltimasColumnas(p,a,rowIndice){ //rowIndice <-- va para abajo
-    const filaTR = tBody.rows[rowIndice];
+    const tB = bodyTabla();
+    const filaTR = tB.rows[rowIndice];
     const elementTH_Presentes = document.createElement('th'); elementTH_Presentes.classList.add('totalColumn_P');
     elementTH_Presentes.innerHTML = p;
     filaTR.appendChild(elementTH_Presentes);
@@ -62,11 +93,16 @@ function construirUltimasColumnas(p,a,rowIndice){ //rowIndice <-- va para abajo
 
 function filaTD(rowIndice){
     var array_P=[], array_A=[];
-    const resultado = tBody.rows[rowIndice].getElementsByTagName("td");
+    let bT = bodyTabla();
+    //console.log(bT); //ok
+
+    const resultado = bT.rows[rowIndice].getElementsByTagName("td");
+    //console.log(resultado); //ok
 
     for (const iterator of resultado) {
         const tagsSelect = iterator.getElementsByTagName('select')[0];
         const textOption = tagsSelect.options[tagsSelect.selectedIndex].text;
+        //console.log(textOption); //ok
 
         switch (textOption) {
             case "P":
@@ -90,43 +126,46 @@ function filaTD(rowIndice){
 /////////////////// ULTIMAS (2) FILAS ////////////////////////
 
 function construirTitulos_UltimasFilas(){
-    const tabla_Rows = document.querySelector("[data-tr-filas]");
+    const tB = bodyTabla(); //CHEQUEAR: si en el fichero getElement se actualiza..
 
     const tr_P = document.createElement('tr'); tr_P.classList.add('tr_LastFilas_P');
     const th_P = document.createElement('th');
     th_P.innerHTML = "Presentes";
     tr_P.appendChild(th_P);
-    tabla_Rows.appendChild(tr_P);
+    tB.appendChild(tr_P);
     
     const tr_A = document.createElement('tr'); tr_A.classList.add('tr_LastFilas_A');
     const th_A = document.createElement('th');
     th_A.innerHTML = "Ausentes";
     tr_A.appendChild(th_A);
-    tabla_Rows.appendChild(tr_A);
+    tB.appendChild(tr_A);
 
 }
 
 function construirUltimasFilas(p,a){ //el parametro "columns" me devuelve de 1 al 28 veces
-    const tablaBody = document.querySelector("[data-tr-filas]");
+    const tB = bodyTabla();
+    const {alumnos} = reCapturar();
     const row_P = alumnos; //Recorda que alumno no empiesa desde 0.
     const row_A = alumnos + 1;
     
     const totalPrecentes = document.createElement('th');
     totalPrecentes.innerHTML = p;
-    const filaTotal_P = tablaBody.rows[row_P];
+    const filaTotal_P = tB.rows[row_P];   
     filaTotal_P.appendChild(totalPrecentes);
     
     const totalAusentes = document.createElement('th');
     totalAusentes.innerHTML = a;
-    const filaTotal_A = tablaBody.rows[row_A];
+    const filaTotal_A = tB.rows[row_A];
     filaTotal_A.appendChild(totalAusentes);
 }
 
 function columnasTD(columns){
     const array_P=[], array_A=[], array_Column=[];
+    let bT = bodyTabla();
+    const {alumnos} = reCapturar();
     
     for (let row = 0; row < alumnos; row++) {        
-        const resultado = tBody.rows[row].cells[columns];
+        const resultado = bT.rows[row].cells[columns];
         const tagsSelect = resultado.getElementsByTagName('select')[0];
         const textOption = tagsSelect.options[tagsSelect.selectedIndex].text;    
         
@@ -174,17 +213,34 @@ function construirTabla(p,a){
     asistenciaMedia.innerHTML = Number(calculo.toFixed(2));
 
     //Porcentaje
-    porcentaje_P.innerHTML = Number(((p*100)/suma_PyA).toFixed(2));
-    porcentaje_A.innerHTML = Number(((a*100)/suma_PyA).toFixed(2));
+    porcentaje_P.innerHTML = (Number(((p*100)/suma_PyA ).toFixed(2))) + '%';
+    porcentaje_A.innerHTML = (Number(((a*100)/suma_PyA ).toFixed(2))) + '%';
 
     div_Resumen.appendChild(template);
 
+    /*************  Título  ***************/
+    if(document.querySelector('.tituloResumen')){
+
+        document.querySelector('.tituloResumen').remove();
+    }
+
+    const titulo = document.createElement('h3');
+    titulo.textContent = 'Resumen: Presentismo del Mes';
+    titulo.className= "tituloResumen";
+
+    const tabla_calculo = document.querySelector('#tabla_calculo');
+    div_Resumen.insertBefore(titulo,tabla_calculo);
+
+
+    /*************  Gráfico  *************/
+    miGrafico(p, a);
 }
 
 function diaHabiles(){
     const array_True=[];
     //const array_False=[];
-    const checkBox = document.querySelector("#td_checkBox");
+    // const checkBox = document.querySelector("#td_checkBox");
+    const checkBox = document.querySelector("[data-tr-checkbox]");
     const td_checkBox = checkBox.getElementsByTagName('td');
 
     for (const iterator of td_checkBox) {
@@ -206,7 +262,8 @@ function diaHabiles(){
 
 function construirTotalGeneral(){
     const array_P=[], array_A=[];
-    const todosLosTD = tBody.getElementsByTagName('td');
+    const bT = bodyTabla();
+    const todosLosTD = bT.getElementsByTagName('td');
 
     for (const iterator of todosLosTD) {
         const tagsSelect = iterator.getElementsByTagName('select')[0];
@@ -227,9 +284,6 @@ function construirTotalGeneral(){
     let presentesTotal = array_P.length;
     let ausentesTotal = array_A.length; 
         
-    construirTabla(presentesTotal, ausentesTotal);
-
-    /*************  style  *************/
-    
+    construirTabla(presentesTotal, ausentesTotal);    
 }
 

@@ -1,63 +1,117 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/tablas.css">
     <link rel="stylesheet" href="css/iconsInputBotton.css">
-            
+
     <title>Planilla de asistencia</title>
-    <script src="js/table2excel-master/dist/table2excel.js"></script>
-</head>
-<body>
-    <h1>Planilla calculo de asistencia</h1>
-    <div class="controlHead">
-        <div class="controlHead_input" id="controlHead_input">
-            <label for="N_alumnos">Cantidad de alumnos:</label>
-            <input type="number" min="1" id="input_alumnos">
-            
-            <label for="fecha_Month">Seleccionar Mes y Año:</label>
-            <input type="month" id="input_month">
-        </div>
-
-        <div class="controlHead_flecha">
-            <a href="" class="aDeslizadorIZQ"><img src="css/icons/icons8-izquierda.png"  alt="boton-deslizador"></a>
-            <a href="" class="aDeslizadorDER"><img src="css/icons/icons8-derecha-78.png" alt="boton-deslizador"></a>
-        </div>
-        
-        <div class="controlHead_boton">
-            <button id="aplicarBtn">Aplicar</button>
-            <button id="btnCalcular">Calcular</button>
-            <button id="btnDescargar">Descargar</button>
-        </div>
-    </div>
+    <script src="js/exportarExcel/table2excel.js"></script> <!-- Librería para descargar excel -->
+    <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script> <!-- Librería online para leer excel -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Librería Chart.js - Gráfico -->
+    <!-- <script src=""></script>  Libreria xlsx js -->
     
-    <hr>
-    <div id="conteiner">
+</head>
 
-        <table id="tabla">
+<body>
+    <main>
+        <header>
+            <h1>Planilla cálculo de asistencia</h1>
+            
+            <label for="excel-input" class="lbl_excel-input">Importar tabla (Excel)</label>
+            <input type="file" id="excel-input" accept=".xls,.xlsx">
+            
+            <div class="controlHead">
+                <div class="controlHead_input" id="controlHead_input">
+                    <label for="N_alumnos">Cantidad de alumnos:</label>
+                    <input type="number" min="1" id="input_alumnos">
+                    
+                    <label for="fecha_Month">Seleccionar Mes y Año:</label>
+                    <input type="month" id="input_month">
+                </div>
+                
+                <div class="controlHead_flecha">
+                    <a href="" class="aDeslizadorIZQ"><img src="css/icons/icons8-izquierda.png" alt="boton-deslizador"></a>
+                    <a href="" class="aDeslizadorDER"><img src="css/icons/icons8-derecha-78.png" alt="boton-deslizador"></a>
+                </div>
+                
+                <div class="controlHead_boton">
+                    <button id="btnAplicar">Aplicar</button>
+                    
+                    <button id="btnCalcular">Calcular</button>
+                    <button id="btnDescargar">Descargar</button>
+                </div>
+            </div>
+        </header>
+        
+        <hr>
+
+        <section id="conteiner">
+            
+            <div class="table-responsive">
+
+                <table id="tabla">    
+                    <thead id="td_checkBox">
+                        <tr data-tr-checkbox>
+                            <!-- <th>(Días hábiles)</th> -->
+                            <!-- aquí irán las casillas checkbox -->
+                        </tr>
+                        <tr data-tr-dias>
+                            <!-- <th>Alumnos Nº:</th> -->
+                            <!-- aquí será la fila con los Nº de días (del mes) -->
+                        </tr>
+                    </thead>
+    
+                    <tbody data-tr-filas>
+                    </tbody>
+                </table>
+
+                
+                <br id="br"> <!-- (This 'br' is) Necesario para usar la funcion: .insertBefore() -->
+            </div>
+
+
+            <div class="tabla_y_grafico">
+                <div data-DivResumen></div>
+        
+                <div class="grafico">
+                    <canvas id="myChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+            
+
+        </section>
+        
+    </main>
+    
+
+
+
+    <!----------- SECCIÓN TEMPLATES --------------->
+
+    <!-- Template tabla asistencia -->
+    <template id="template_tabla">
+        <table id="tabla">    
             <thead id="td_checkBox">
                 <tr data-tr-checkbox>
-                    <th>(Días hábiles)</th>
+                    <!-- <th>(Días hábiles)</th> -->
                     <!-- aquí irán las casillas checkbox -->
                 </tr>
                 <tr data-tr-dias>
-                    <th>Alumnos Nº:</th>
+                    <!-- <th>Alumnos Nº:</th> -->
                     <!-- aquí será la fila con los Nº de días (del mes) -->
                 </tr>
             </thead>
-            <tbody data-tr-filas>
-                    <!-- Las filas de la primer columnas -->
-                    <!-- Las filas del contenido -->
-            </tbody>
-    
-        </table>
-    
-        <br id="br">
-        <div data-DivResumen></div>
-    </div>
 
+            <tbody data-tr-filas>
+            </tbody>
+        </table>
+    </template>
+
+    <!-- Template tabla cálculo total -->
     <template id="template_tablaGnl">
         <table id="tabla_calculo">
             <thead>
@@ -87,30 +141,9 @@
         </table>
 
     </template>
-    
-    <template id="template_tabla">
-        <table id="tabla">
-            <thead id="td_checkBox">
-                <tr data-tr-checkbox>
-                    <th>(Días hábiles)</th>
-                    <!-- aquí irán las casillas checkbox -->
-                </tr>
-                <tr data-tr-dias>
-                    <th>Alumnos Nº:</th>
-                    <!-- aquí será la fila con los Nº de días (del mes) -->
-                </tr>
-            </thead>
-            <tbody data-tr-filas>
-                    <!-- Las filas de la primer columnas -->
-                    <!-- Las filas del contenido -->
-            </tbody>
-    
-        </table>
-    </template>
 
-    
-               
-    <script type="module" src="js/app/calculo.js"></script>
+    <script type="module" src="./js/app/app.js"></script>
     
 </body>
+
 </html>
