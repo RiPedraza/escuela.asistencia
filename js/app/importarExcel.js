@@ -132,17 +132,35 @@ function limpiarInputs(){
 
 
 export async function importarArchivo(){
+    
     limpiarTodo();
     limpiarInputs();
     f_botonIzq();
 
+    /**Obtenemos el nombre del archivo */
+    const fileName = excelInput.files[0].name;
+    const fileBaseName = fileName.substring(0, fileName.lastIndexOf('.'));
+    console.log(fileBaseName);
+
     
-    // const fileName = excelInput.files[0].name;
-    // const fileBaseName = fileName.substring(0, fileName.lastIndexOf('.'));
-    // console.log(fileBaseName);
+    /**Obtenemos el nombre de la hoja del excel */
+    const file = excelInput.files[0];
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        const data = new Uint8Array(event.target.result);
+        try {
+        const workbook = XLSX.read(data, { type: 'array' });
+        const sheetName = workbook.SheetNames[0];
+        console.log('Nombre de la hoja de cálculo:', sheetName);
+        } catch (error) {
+        console.error('Error leyendo el archivo de Excel:', error);
+        }
+    };
+    reader.readAsArrayBuffer(file);
     
-    let content = await readXlsxFile(excelInput.files[0]);    
-    console.log(content);
+
+    /**Empieza la magia */
+    let content = await readXlsxFile(excelInput.files[0]);
     const excel = new ExcelMy(content);
     ExcelPrinter.print('tabla', excel);
 

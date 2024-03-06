@@ -38,24 +38,3 @@ btnAplicar.addEventListener('click', generarTabla);
 
 btnCalcular.addEventListener('click', calcular);
 
-// este sirve para obtener el nombre de la hoja excel, falta mover al fichero importarExcel y acoplarlo
-const input = document.getElementById('impExcel');
-input.addEventListener('change', async (event) => {
-  const file = event.target.files[0];
-  const reader = new FileReader();
-  reader.onload = (event) => {
-    const data = new Uint8Array(event.target.result);
-    try {
-      const workbook = XLSX.read(data, { type: 'array' });
-      const sheetName = workbook.SheetNames[0];
-      console.log('Nombre de la hoja de cálculo:', sheetName);
-    } catch (error) {
-      console.error('Error leyendo el archivo de Excel:', error);
-    }
-  };
-  reader.readAsArrayBuffer(file);
-});
-
-
-
-
