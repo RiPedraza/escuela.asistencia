@@ -7,7 +7,7 @@ import { f_botonIzq } from "./botton.js";
 import { checkboxColumna } from "./checkBoxInteractivo.js";
 
 
-class Excel{
+class ExcelMy{
     constructor(content){
         this.content = content;
     }
@@ -136,25 +136,19 @@ export async function importarArchivo(){
     limpiarInputs();
     f_botonIzq();
 
-    const XLSX = require('xlsx');
-    let content = await readXlsxFile(excelInput.files[0]);    
-    const sheetName = XLSX.utils.sheet_to_json(content, { header: 1 })[0][0] || XLSX.utils.book_to_sheet(content).name;
-    console.log(sheetName);
-    
-    
-    
-    
-    
-    
     
     // const fileName = excelInput.files[0].name;
     // const fileBaseName = fileName.substring(0, fileName.lastIndexOf('.'));
     // console.log(fileBaseName);
     
-    const excel = new Excel(content);
+    let content = await readXlsxFile(excelInput.files[0]);    
+    console.log(content);
+    const excel = new ExcelMy(content);
     ExcelPrinter.print('tabla', excel);
-    
+
 }
+
+
 
 
 
