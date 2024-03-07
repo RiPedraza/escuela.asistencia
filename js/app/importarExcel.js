@@ -3,7 +3,7 @@ import { limpiarTodo } from "./clear.js";
 import { generateTd_in_TrCheckbox, generateCheckBox, generateTrFilas, generateTd_in_TrFilas, generateTitleThAlumnos } from "./createANDappendChild.js";
 import { styleSelect, styleSelectStandar } from "./styleSelect.js";
 import { ifImportMonth } from "./calculo.js";
-import { f_botonIzq } from "./botton.js";
+import { f_botonIzq, f_botonDer } from "./botton.js";
 import { checkboxColumna } from "./checkBoxInteractivo.js";
 
 
@@ -125,7 +125,7 @@ class ExcelPrinter{
 }
 
 function limpiarInputs(){
-    input_alumnos.innerHTML  = '';
+    input_alumnos.value  = '';
     input_month.value = '';
 }
 
@@ -133,36 +133,52 @@ function limpiarInputs(){
 
 export async function importarArchivo(){
     
-    limpiarTodo();
-    limpiarInputs();
-    f_botonIzq();
-
-    /**Obtenemos el nombre del archivo */
-    const fileName = excelInput.files[0].name;
-    const fileBaseName = fileName.substring(0, fileName.lastIndexOf('.'));
-    console.log(fileBaseName);
-
+    if(excelInput.files[0]){
+        limpiarTodo();
+        limpiarInputs();
+        f_botonIzq();
+        /**Obtenemos el nombre del archivo */
+        const fileName = excelInput.files[0].name;
+        const fileBaseName = fileName.substring(0, fileName.lastIndexOf('.'));
+        console.log(fileBaseName);
+        
+        /**Obtenemos el nombre de la hoja del excel */
+        const file = excelInput.files[0];
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const data = new Uint8Array(event.target.result);
+            try {
+            const workbook = XLSX.read(data, { type: 'array' });
+            const sheetName = workbook.SheetNames[0];
+            console.log('Nombre de la hoja de cálculo:', sheetName);
+            } catch (error) {
+            console.error('Error leyendo el archivo de Excel:', error);
+            }
+        };
+        reader.readAsArrayBuffer(file);
+        
     
-    /**Obtenemos el nombre de la hoja del excel */
-    const file = excelInput.files[0];
-    const reader = new FileReader();
-    reader.onload = (event) => {
-        const data = new Uint8Array(event.target.result);
-        try {
-        const workbook = XLSX.read(data, { type: 'array' });
-        const sheetName = workbook.SheetNames[0];
-        console.log('Nombre de la hoja de cálculo:', sheetName);
-        } catch (error) {
-        console.error('Error leyendo el archivo de Excel:', error);
-        }
-    };
-    reader.readAsArrayBuffer(file);
-    
+        /**Empieza la magia */
+        let content = await readXlsxFile(excelInput.files[0]);
+        const excel = new ExcelMy(content);
+        ExcelPrinter.print('tabla', excel);
+    }else{
+        const body = document.getElementsByTagName('body')[0];
+                
+        
+        body.style.filter = 'blur(5px) brightness(0.5)';
+        body.style.background = '#00000094';
+               
 
-    /**Empieza la magia */
-    let content = await readXlsxFile(excelInput.files[0]);
-    const excel = new ExcelMy(content);
-    ExcelPrinter.print('tabla', excel);
+        setTimeout(function (){ 
+            alert("No has seleccionado ningún archivo");
+            body.style.filter = 'none';
+            body.style.background = 'none';
+            
+        }, 250);
+        
+    }
+
 
 }
 
