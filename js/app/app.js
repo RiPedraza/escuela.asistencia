@@ -38,4 +38,3 @@ btnAplicar.addEventListener('click', generarTabla);
 
 btnCalcular.addEventListener('click', calcular);
 
-

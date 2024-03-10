@@ -9,10 +9,15 @@
     <link rel="stylesheet" href="css/iconsInputBotton.css">
 
     <title>Planilla de asistencia</title>
-    <script src="js/exportarExcel/table2excel.js"></script> <!-- Librería para descargar excel -->
+    <script src="js/librerias/table2excel.js"></script> <!-- Librería para descargar excel -->
     <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script> <!-- Librería online para leer excel -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Librería Chart.js - Gráfico -->
-    <!-- <script src=""></script>  Libreria xlsx js -->
+    <!-- Para obtener el nombre de la hoja (la primera opcion de los 3) -->
+    <script src="https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js"></script> 
+    <!-- <script src="https://unpkg.com/xlsx@latest/dist/xlsx.full.min.js"></script> -->   <!-- En este caso, el parámetro @latest indica al CDN que siempre debe devolver la última versión disponible de la librería. El asterisco (*) especifica que debe cargar la última versión de cualquier archivo en el directorio dist. -->
+    <!-- <script src="js/librerias/xlsx.full.min.js"></script> -->   <!-- en caso de utilizar la misma libreria (unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js) descargada localmente -->
+    
+
     
 </head>
 
@@ -23,7 +28,7 @@
             
             <label for="excel-input" class="lbl_excel-input">Importar tabla (Excel)</label>
             <input type="file" id="excel-input" accept=".xls,.xlsx">
-            
+
             <div class="controlHead">
                 <div class="controlHead_input" id="controlHead_input">
                     <label for="input_alumnos">Cantidad de alumnos:</label>
