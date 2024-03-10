@@ -10,6 +10,8 @@ var btnCalcular = document.querySelector('#btnCalcular');
 var botonDer = document.querySelector('.aDeslizadorDER');
 var botonIzq = document.querySelector('.aDeslizadorIZQ');
 var controlHead_input = document.querySelector('#controlHead_input');
+var controlHead_boton = document.querySelector('.controlHead_boton');
+ 
 
 var tBody = document.querySelector("[data-tr-filas]");
 
@@ -17,4 +19,4 @@ function bodyTabla(){
     return document.querySelector("[data-tr-filas]");
 }
 
-export {btnExportar, excelInput, input_alumnos, input_month, btnAplicar, btnCalcular, botonDer, botonIzq, controlHead_input, tBody, bodyTabla};
+export {btnExportar, excelInput, input_alumnos, input_month, btnAplicar, btnCalcular, botonDer, botonIzq, controlHead_input, controlHead_boton, tBody, bodyTabla};

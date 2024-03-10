@@ -25,11 +25,7 @@
     visibility: hidden;
 }
 
-.controlHead_input{
-    display: flex;
-    align-items: center;
-    height: 102px;
-}
+
 
 #btnAplicar{   
     width: 64px;
@@ -123,9 +119,13 @@
     
 }
 
+
 /* *********************** */
 /* Inicializacion efect */
 .controlHead_input{
+    display: flex;
+    align-items: center;
+    height: 102px;
     visibility: visible;
     width: 700px;
     height: 102px;
@@ -133,6 +133,9 @@
     transition: all 2s linear 0s;
 }
 
+.controlHead_boton{
+    display: flex;
+}
 
 
 /* ************************ */
@@ -146,12 +149,14 @@
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
-        width: 124px;
+        width: 180px;
         height: auto;
         margin-top: 10px;
 
     }
-
+    .controlHead_boton{
+        width: 70px;
+    }
 }
 
 @media screen and (max-width: 400px){
