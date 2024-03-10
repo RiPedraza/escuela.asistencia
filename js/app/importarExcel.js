@@ -140,7 +140,7 @@ export async function importarArchivo(){
         /**Obtenemos el nombre del archivo */
         const fileName = excelInput.files[0].name;
         const fileBaseName = fileName.substring(0, fileName.lastIndexOf('.'));
-        console.log(fileBaseName);
+        console.log('Nombre del archivo:', fileBaseName);
         
         /**Obtenemos el nombre de la hoja del excel */
         const file = excelInput.files[0];
