@@ -4,6 +4,7 @@ import { importarArchivo } from './importarExcel.js'; //Módulo Importar Excel
 import { f_botonDer, f_botonIzq, resizeHandler } from './botton.js'; //Efectos de los Botones
 import { generarTabla } from './generarTabla.js';
 import { calcular } from './calculo.js';
+import { fechaActual } from './fechaActual.js'; //IIFE  para obtener el año actual en el footer
 
 
 //Exportar Excel
@@ -37,4 +38,3 @@ window.addEventListener('resize', resizeHandler(controlHead_input));
 btnAplicar.addEventListener('click', generarTabla);
 
 btnCalcular.addEventListener('click', calcular);
-
