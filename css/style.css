@@ -1,0 +1,15 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+footer{
+    margin-top: 1rem;
+    
+    p{
+        color: rgb(26, 26, 63);
+        color: #333;
+    }
+}
