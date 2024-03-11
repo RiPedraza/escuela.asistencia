@@ -12,4 +12,27 @@ footer{
         color: rgb(26, 26, 63);
         color: #333;
     }
+
+    a{
+        text-decoration: none;
+        color: #444;
+    }
+
+    a:hover {
+        border-bottom: 1px solid darkblue;
+        background: #33333338;
+        font-weight: bold;
+    }
+    
+    a:active{
+        text-decoration: dashed;
+        background: rgb(236, 158, 236);
+        color: purple;
+    }
+    
+    a:visited{
+        color: #341e5e;
+        border-bottom: 1px solid #341e5e;
+    }
+
 }
