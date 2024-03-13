@@ -1,38 +1,41 @@
 
 
 export function miGrafico(presentes,ausentes){
-    
-    
     destruirGrafico();
+
+    Chart.register(ChartDataLabels); //Esta línea de código le dice a Chart.js que use el plugin ChartDataLabels para mostrar las etiquetas de datos en el gráfico.
 
     var ctx = document.getElementById('myChart'); 
             
     window.grafica = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ['Precentes', 'Ausentes'],
+            labels: ['Presentes', 'Ausentes'],
             datasets: [{
                 label: 'Cantidad',
                 data: [presentes, ausentes],
                 borderWidth: 1
             }]
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    formatter: (value, ctx) => {
+                        let sum = 0;
+                        let dataArr = ctx.chart.data.datasets[0].data;
+                        dataArr.map(data => {
+                            sum += data;
+                        });
+                        let percentage = (value * 100 / sum).toFixed(2)+"%";
+                        return percentage;
+                    },
+                    color: '#fff',
+                    font: {
+                        weight: 'bold'
+                    }
+                }
+            }
         }
-        // options: {
-        //     plugins: {
-        //         title: {
-        //             display: true,
-        //             text: 'Gráfico de Presentismo del Mes',   
-        //             padding: {
-        //                 top: 5,
-        //                 bottom: 10
-        //             },
-        //             font: {
-        //                 size: 14
-        //             }
-                    
-        //         }
-        //     }
-        // }
     });  
         
 };
@@ -62,13 +65,3 @@ export function destruirGrafico(){
 
 }
 
-
-/*
-azul
-#9AD0F5 relleno
-#36A2EB borde
-
-rojo
-#FFB0C1 relleno
-#FFB0C1 borde
-*/

@@ -151,6 +151,7 @@ export async function importarArchivo(){
             const workbook = XLSX.read(data, { type: 'array' });
             const sheetName = workbook.SheetNames[0];
             console.log('Nombre de la hoja de cálculo:', sheetName);
+            input_month.value = sheetName;
             } catch (error) {
             console.error('Error leyendo el archivo de Excel:', error);
             }
